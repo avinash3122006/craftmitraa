@@ -1,18 +1,18 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict
 
 
 class RegisterRequest(BaseModel):
     name: str
-    email: EmailStr
+    email: str
     password: str
     phone: str | None = None
     role: str = 'customer'  # customer or artisan
 
 
 class LoginRequest(BaseModel):
-    email: EmailStr
+    email: str
     password: str
 
 

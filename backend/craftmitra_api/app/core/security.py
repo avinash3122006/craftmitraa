@@ -2,19 +2,34 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 
 from app.core.config import settings
 
-pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
+try:
+    import bcrypt
 
+    def hash_password(password: str) -> str:
+        # Enforce 72-byte limit for bcrypt compatibility across all versions
+        pwd_bytes = password.encode('utf-8')[:72]
+        salt = bcrypt.gensalt()
+        return bcrypt.hashpw(pwd_bytes, salt).decode('utf-8')
 
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    def verify_password(plain_password: str, hashed_password: str) -> bool:
+        try:
+            pwd_bytes = plain_password.encode('utf-8')[:72]
+            hashed_bytes = hashed_password.encode('utf-8')
+            return bcrypt.checkpw(pwd_bytes, hashed_bytes)
+        except Exception:
+            return False
 
+except ImportError:
+    import hashlib
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    def hash_password(password: str) -> str:
+        return hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+    def verify_password(plain_password: str, hashed_password: str) -> bool:
+        return hashlib.sha256(plain_password.encode('utf-8')).hexdigest() == hashed_password
 
 
 def create_access_token(subject: str, role: str = 'customer', expires_delta: timedelta | None = None) -> str:

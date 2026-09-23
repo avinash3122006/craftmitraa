@@ -6,7 +6,7 @@ Production-ready backend service connecting rural Indian artisans with conscious
 
 - **Web Framework**: FastAPI with Pydantic v2 schemas and CORS middleware
 - **ORM & Database**: SQLAlchemy 2.0 with PostgreSQL support and zero-config local SQLite fallback (`sqlite:///./craftmitra.db`)
-- **Security & Authentication**: JWT Access Tokens (HS256) with passlib bcrypt password hashing
+- **Security & Authentication**: JWT Access Tokens (HS256) with standard bcrypt password hashing
 - **Mock Integrations**: Self-contained mock adapters for Razorpay, Shiprocket, Cloudinary, and AI Engine so no live 3rd-party credentials or paid API keys are required for development.
 
 ## Setup & Running

@@ -1,0 +1,33 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Node / Flutter
+node_modules/
+dist/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# IDE/editor
+.vscode/
+.idea/
+.DS_Store
+
+# OS files
+Thumbs.db
+
+# Logs
+*.log

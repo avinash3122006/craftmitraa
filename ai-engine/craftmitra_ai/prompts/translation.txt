@@ -1,0 +1,1 @@
+This prompt will be used to translate product descriptions and titles into regional languages.

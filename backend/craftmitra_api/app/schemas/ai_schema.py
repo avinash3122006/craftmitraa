@@ -1,17 +1,33 @@
 from pydantic import BaseModel
 
 
-class AIProductRequest(BaseModel):
+class SpeechToTextRequest(BaseModel):
+    audio_base64: str | None = None
+    language: str = 'Hindi'
+
+
+class SpeechToTextResponse(BaseModel):
+    transcript: str
+    language: str
+    confidence: float = 0.95
+
+
+class AIProductAnalyzeRequest(BaseModel):
     image_url: str | None = None
     voice_text: str | None = None
-    language: str = 'en'
+    language: str = 'Hindi'
 
 
-class AIProductResponse(BaseModel):
-    product_name: str | None = None
-    category: str | None = None
-    material: str | None = None
-    description: str | None = None
-    tags: list[str] = []
-    price_min: float | None = None
-    price_max: float | None = None
+class AIProductAnalyzeResponse(BaseModel):
+    suggested_title: str
+    category: str
+    generated_description: str
+    cultural_story: str
+    detected_materials: list[str]
+    suggested_fair_price_min: float
+    suggested_fair_price_max: float
+    recommended_price: float
+    estimated_labor_hours: int
+    suggested_tags: list[str]
+    confidence_score: float = 0.94
+    sustainability_rating: str = '100% Eco-friendly & Biodegradable'

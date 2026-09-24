@@ -1,12 +1,12 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict
 
 
 class UserProfile(BaseModel):
     id: str
     name: str
-    email: EmailStr
+    email: str
     phone: str | None = None
     role: str
     created_at: datetime | None = None

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../models/artisan_model.dart';
-import '../../models/product_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/order_provider.dart';
@@ -48,7 +46,14 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     _productProvider.addListener(_onStateChange);
     _cartProvider.addListener(_onStateChange);
     _orderProvider.addListener(_onStateChange);
-    _authProvider.addListener(_onStateChange);
+    _authProvider.addListener(_onAuthStateChange);
+    _onAuthStateChange();
+  }
+
+  void _onAuthStateChange() {
+    if (_authProvider.isAuthenticated && (_authProvider.accessToken ?? '').isNotEmpty) {
+      _productProvider.loadProducts(token: _authProvider.accessToken);
+    }
   }
 
   void _onStateChange() {
@@ -60,7 +65,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     _productProvider.removeListener(_onStateChange);
     _cartProvider.removeListener(_onStateChange);
     _orderProvider.removeListener(_onStateChange);
-    _authProvider.removeListener(_onStateChange);
+    _authProvider.removeListener(_onAuthStateChange);
     super.dispose();
   }
 
@@ -166,9 +171,9 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                           decoration: BoxDecoration(
-                            color: AppColors.tertiaryFixed.withOpacity(0.5),
+                            color: AppColors.tertiaryFixed.withValues(alpha: 0.5),
                             borderRadius: AppDimensions.roundedFull,
-                            border: Border.all(color: AppColors.forestGreen.withOpacity(0.4)),
+                            border: Border.all(color: AppColors.forestGreen.withValues(alpha: 0.4)),
                           ),
                           child: Row(
                             children: [
@@ -235,7 +240,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                             child: Text(
                               'Search handmade terracotta, handloom, art...',
                               style: AppTypography.bodyMd.copyWith(
-                                color: AppColors.onSurfaceVariant.withOpacity(0.7),
+                                color: AppColors.onSurfaceVariant.withValues(alpha: 0.7),
                                 fontSize: 13,
                               ),
                             ),
@@ -280,7 +285,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
-                              color: AppColors.pureWhite.withOpacity(0.2),
+                              color: AppColors.pureWhite.withValues(alpha: 0.2),
                               borderRadius: AppDimensions.roundedFull,
                             ),
                             child: Text(
@@ -306,7 +311,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                           Text(
                             'Every purchase credits 85%+ directly into the rural artisan\'s bank.',
                             style: AppTypography.bodySm.copyWith(
-                              color: AppColors.pureWhite.withOpacity(0.9),
+                              color: AppColors.pureWhite.withValues(alpha: 0.9),
                               fontSize: 11,
                             ),
                           ),
@@ -318,7 +323,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                       width: 58,
                       height: 58,
                       decoration: BoxDecoration(
-                        color: AppColors.pureWhite.withOpacity(0.15),
+                        color: AppColors.pureWhite.withValues(alpha: 0.15),
                         shape: BoxShape.circle,
                       ),
                       child: const Center(
@@ -482,7 +487,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: AppColors.forestGreen.withOpacity(0.12),
+                      color: AppColors.forestGreen.withValues(alpha: 0.12),
                       borderRadius: AppDimensions.roundedFull,
                     ),
                     child: Text(

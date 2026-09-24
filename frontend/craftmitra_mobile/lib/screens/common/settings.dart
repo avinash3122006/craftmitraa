@@ -47,11 +47,13 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Aarav Sharma',
-                          style: AppTypography.headlineSm.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+                          style: AppTypography.headlineSm.copyWith(
+                              fontSize: 16, fontWeight: FontWeight.w700),
                         ),
                         Text(
                           '+91 98765 43210',
-                          style: AppTypography.bodySm.copyWith(color: AppColors.outline),
+                          style: AppTypography.bodySm
+                              .copyWith(color: AppColors.outline),
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -74,9 +76,10 @@ class SettingsScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(AppDimensions.spaceMd),
               decoration: BoxDecoration(
-                color: AppColors.terracotta.withOpacity(0.08),
+                color: AppColors.terracotta.withValues(alpha: 0.08),
                 borderRadius: AppDimensions.roundedLg,
-                border: Border.all(color: AppColors.terracotta.withOpacity(0.3)),
+                border: Border.all(
+                    color: AppColors.terracotta.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -86,7 +89,8 @@ class SettingsScreen extends StatelessWidget {
                       color: AppColors.terracotta,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.brush_rounded, color: AppColors.pureWhite, size: 22),
+                    child: const Icon(Icons.brush_rounded,
+                        color: AppColors.pureWhite, size: 22),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -95,7 +99,8 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Experience Artisan Studio',
-                          style: AppTypography.labelMd.copyWith(fontWeight: FontWeight.w700),
+                          style: AppTypography.labelMd
+                              .copyWith(fontWeight: FontWeight.w700),
                         ),
                         Text(
                           'Switch to Karigar mode to test camera & voice multimodal craft listing.',
@@ -136,46 +141,58 @@ class SettingsScreen extends StatelessWidget {
                 borderRadius: AppDimensions.roundedLg,
                 border: Border.all(color: AppColors.surfaceContainerHigh),
               ),
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.language_rounded, color: AppColors.terracotta),
-                    title: const Text('App Language'),
-                    subtitle: const Text('English (Indian)'),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
-                    onTap: () {},
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.location_on_outlined, color: AppColors.terracotta),
-                    title: const Text('Saved Delivery Addresses'),
-                    subtitle: const Text('2 saved addresses in Bengaluru'),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
-                    onTap: () {},
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.handshake_outlined, color: AppColors.forestGreen),
-                    title: const Text('Fair Trade Transparency Report'),
-                    subtitle: const Text('Verify 85%+ direct payout flow'),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
-                    onTap: () {},
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.swap_horiz_rounded, color: AppColors.outline),
-                    title: const Text('Role Selector Screen'),
-                    subtitle: const Text('Choose Artisan vs Connoisseur role'),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const RoleSelectionScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.language_rounded,
+                          color: AppColors.terracotta),
+                      title: const Text('App Language'),
+                      subtitle: const Text('English (Indian)'),
+                      trailing:
+                          const Icon(Icons.arrow_forward_ios_rounded, size: 14),
+                      onTap: () {},
+                    ),
+                    const Divider(),
+                    ListTile(
+                      leading: const Icon(Icons.location_on_outlined,
+                          color: AppColors.terracotta),
+                      title: const Text('Saved Delivery Addresses'),
+                      subtitle: const Text('2 saved addresses in Bengaluru'),
+                      trailing:
+                          const Icon(Icons.arrow_forward_ios_rounded, size: 14),
+                      onTap: () {},
+                    ),
+                    const Divider(),
+                    ListTile(
+                      leading: const Icon(Icons.handshake_outlined,
+                          color: AppColors.forestGreen),
+                      title: const Text('Fair Trade Transparency Report'),
+                      subtitle: const Text('Verify 85%+ direct payout flow'),
+                      trailing:
+                          const Icon(Icons.arrow_forward_ios_rounded, size: 14),
+                      onTap: () {},
+                    ),
+                    const Divider(),
+                    ListTile(
+                      leading: const Icon(Icons.swap_horiz_rounded,
+                          color: AppColors.outline),
+                      title: const Text('Role Selector Screen'),
+                      subtitle:
+                          const Text('Choose Artisan vs Connoisseur role'),
+                      trailing:
+                          const Icon(Icons.arrow_forward_ios_rounded, size: 14),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const RoleSelectionScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

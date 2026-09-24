@@ -59,7 +59,8 @@ class AddProductScreen extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => CaptureProductScreen(
-                            productProvider: productProvider ?? ProductProvider(),
+                            productProvider:
+                                productProvider ?? ProductProvider(),
                             aiProvider: aiProvider ?? AIProvider(),
                           ),
                         ),
@@ -73,10 +74,12 @@ class AddProductScreen extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: AppColors.primaryFixed.withOpacity(0.5),
+                              color:
+                                  AppColors.primaryFixed.withValues(alpha: 0.5),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.auto_awesome, color: AppColors.terracotta, size: 28),
+                            child: const Icon(Icons.auto_awesome,
+                                color: AppColors.terracotta, size: 28),
                           ),
                           const SizedBox(width: 14),
                           Expanded(
@@ -94,9 +97,11 @@ class AddProductScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 6),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6, vertical: 2),
                                       decoration: BoxDecoration(
-                                        color: AppColors.forestGreen.withOpacity(0.12),
+                                        color: AppColors.forestGreen
+                                            .withValues(alpha: 0.12),
                                         borderRadius: AppDimensions.roundedFull,
                                       ),
                                       child: const Text(
@@ -121,7 +126,8 @@ class AddProductScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: AppColors.terracotta),
+                          const Icon(Icons.arrow_forward_ios_rounded,
+                              size: 16, color: AppColors.terracotta),
                         ],
                       ),
                     ),
@@ -138,16 +144,24 @@ class AddProductScreen extends StatelessWidget {
                   boxShadow: const [AppColors.pressedShadow],
                   border: Border.all(color: AppColors.surfaceContainerHigh),
                 ),
-                child: ListTile(
-                  leading: const Icon(Icons.edit_note_rounded, color: AppColors.outline),
-                  title: const Text('Manual Form Entry'),
-                  subtitle: const Text('Fill out title, pricing, dimensions and materials by hand'),
-                  trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Manual form available. Tap AI Voice for faster listing.')),
-                    );
-                  },
+                child: Material(
+                  color: Colors.transparent,
+                  child: ListTile(
+                    leading: const Icon(Icons.edit_note_rounded,
+                        color: AppColors.outline),
+                    title: const Text('Manual Form Entry'),
+                    subtitle: const Text(
+                        'Fill out title, pricing, dimensions and materials by hand'),
+                    trailing:
+                        const Icon(Icons.arrow_forward_ios_rounded, size: 14),
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                                'Manual form available. Tap AI Voice for faster listing.')),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

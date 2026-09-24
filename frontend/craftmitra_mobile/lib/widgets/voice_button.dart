@@ -78,7 +78,7 @@ class _VoiceButtonState extends State<VoiceButton>
                         color: (widget.isRecording
                                 ? AppColors.error
                                 : AppColors.terracotta)
-                            .withOpacity(0.35),
+                            .withValues(alpha: 0.35),
                         blurRadius: widget.isRecording ? 20 : 12,
                         spreadRadius: widget.isRecording ? 4 : 1,
                       ),

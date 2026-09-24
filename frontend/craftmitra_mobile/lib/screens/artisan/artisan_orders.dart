@@ -56,9 +56,9 @@ class _ArtisanOrdersScreenState extends State<ArtisanOrdersScreen> {
             Container(
               padding: const EdgeInsets.all(AppDimensions.spaceMd),
               decoration: BoxDecoration(
-                color: AppColors.tertiaryFixed.withOpacity(0.4),
+                color: AppColors.tertiaryFixed.withValues(alpha: 0.4),
                 borderRadius: AppDimensions.roundedLg,
-                border: Border.all(color: AppColors.forestGreen.withOpacity(0.3)),
+                border: Border.all(color: AppColors.forestGreen.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -124,8 +124,8 @@ class _ArtisanOrdersScreenState extends State<ArtisanOrdersScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                           decoration: BoxDecoration(
                             color: isPacked
-                                ? AppColors.forestGreen.withOpacity(0.12)
-                                : AppColors.secondaryFixed.withOpacity(0.4),
+                                ? AppColors.forestGreen.withValues(alpha: 0.12)
+                                : AppColors.secondaryFixed.withValues(alpha: 0.4),
                             borderRadius: AppDimensions.roundedFull,
                           ),
                           child: Text(

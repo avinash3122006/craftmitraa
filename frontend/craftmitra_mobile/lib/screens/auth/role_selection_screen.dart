@@ -163,7 +163,7 @@ class _RoleCard extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: accentColor.withOpacity(0.12),
+                        color: accentColor.withValues(alpha: 0.12),
                         borderRadius: AppDimensions.roundedMd,
                       ),
                       child: Icon(icon, color: accentColor, size: 28),
@@ -171,7 +171,7 @@ class _RoleCard extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: badgeColor.withOpacity(0.12),
+                        color: badgeColor.withValues(alpha: 0.12),
                         borderRadius: AppDimensions.roundedFull,
                       ),
                       child: Text(

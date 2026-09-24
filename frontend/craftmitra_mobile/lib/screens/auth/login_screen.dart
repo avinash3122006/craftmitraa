@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+
+import '../../models/user_model.dart';
+import '../../providers/auth_provider.dart';
 import '../../theme/colors.dart';
 import '../../theme/dimensions.dart';
 import '../../theme/typography.dart';
+import '../customer/customer_home.dart';
+import 'register_screen.dart';
 import 'role_selection_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -12,15 +17,54 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _phoneController = TextEditingController();
-  bool _otpSent = false;
-  final TextEditingController _otpController = TextEditingController();
-  String _selectedLang = 'English';
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final AuthProvider _authProvider = AuthProvider();
+  bool _isSubmitting = false;
+  String? _errorMessage;
+
+  Future<void> _submitLogin() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      setState(() => _errorMessage = 'Email and password are required.');
+      return;
+    }
+
+    setState(() {
+      _isSubmitting = true;
+      _errorMessage = null;
+    });
+
+    try {
+      await _authProvider.login(email: email, password: password);
+      if (!mounted) return;
+
+      if (_authProvider.isAuthenticated) {
+        final route = _authProvider.currentUserOrFallback.role == UserRole.artisan
+            ? const RoleSelectionScreen()
+            : const CustomerHomeScreen();
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => route),
+        );
+        return;
+      }
+
+      setState(() => _errorMessage = 'Authentication failed. Please try again.');
+    } catch (error) {
+      setState(() => _errorMessage = error.toString().replaceFirst('Exception: ', ''));
+    } finally {
+      if (mounted) {
+        setState(() => _isSubmitting = false);
+      }
+    }
+  }
 
   @override
   void dispose() {
-    _phoneController.dispose();
-    _otpController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -30,37 +74,6 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: AppColors.warmCream,
       appBar: AppBar(
         title: const Text('CraftMitra AI'),
-        actions: [
-          PopupMenuButton<String>(
-            initialValue: _selectedLang,
-            onSelected: (val) {
-              setState(() => _selectedLang = val);
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  const Icon(Icons.language_rounded, size: 18, color: AppColors.terracotta),
-                  const SizedBox(width: 4),
-                  Text(
-                    _selectedLang,
-                    style: AppTypography.labelSm.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.terracotta,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            itemBuilder: (context) => [
-              const PopupMenuItem(value: 'English', child: Text('English')),
-              const PopupMenuItem(value: 'हिन्दी', child: Text('हिन्दी (Hindi)')),
-              const PopupMenuItem(value: 'राजस्थानी', child: Text('राजस्थानी (Rajasthani)')),
-              const PopupMenuItem(value: 'मैथिली', child: Text('मैथिली (Maithili)')),
-              const PopupMenuItem(value: 'বাংলা', child: Text('বাংলা (Bengali)')),
-            ],
-          ),
-        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -68,99 +81,88 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Welcome Back',
-                style: AppTypography.headlineLg,
-              ),
+              Text('Welcome Back', style: AppTypography.headlineLg),
               const SizedBox(height: 6),
               Text(
-                'Enter your mobile number to sign in or register as an artisan or buyer.',
+                'Sign in with your email and password to continue.',
                 style: AppTypography.bodyMd,
               ),
               const SizedBox(height: AppDimensions.spaceLg),
-
-              // Phone number input
               Container(
+                padding: const EdgeInsets.all(AppDimensions.spaceMd),
                 decoration: BoxDecoration(
                   color: AppColors.pureWhite,
                   borderRadius: AppDimensions.roundedLg,
                   boxShadow: const [AppColors.pressedShadow],
                 ),
-                child: TextField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone,
-                  style: AppTypography.bodyLg,
-                  decoration: InputDecoration(
-                    prefixIcon: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-                      child: Text(
-                        '+91',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.onSurface,
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                        prefixIcon: Icon(Icons.email_outlined),
+                      ),
+                    ),
+                    const SizedBox(height: AppDimensions.spaceMd),
+                    TextField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        labelText: 'Password',
+                        prefixIcon: Icon(Icons.lock_outline_rounded),
+                      ),
+                    ),
+                    if (_errorMessage != null) ...[
+                      const SizedBox(height: AppDimensions.spaceMd),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.error.withValues(alpha: 0.08),
+                          borderRadius: AppDimensions.roundedMd,
+                        ),
+                        child: Text(
+                          _errorMessage!,
+                          style: AppTypography.bodySm.copyWith(color: AppColors.error),
                         ),
                       ),
-                    ),
-                    hintText: 'Enter 10-digit mobile number',
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: AppDimensions.spaceMd),
-
-              if (_otpSent) ...[
-                Text(
-                  'Enter 4-digit OTP sent via SMS / WhatsApp',
-                  style: AppTypography.bodySm.copyWith(
-                    color: AppColors.onSurfaceVariant,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.pureWhite,
-                    borderRadius: AppDimensions.roundedLg,
-                    boxShadow: const [AppColors.pressedShadow],
-                  ),
-                  child: TextField(
-                    controller: _otpController,
-                    keyboardType: TextInputType.number,
-                    maxLength: 4,
-                    style: AppTypography.headlineSm.copyWith(letterSpacing: 8),
-                    decoration: const InputDecoration(
-                      counterText: '',
-                      hintText: '••••',
-                      prefixIcon: Icon(Icons.lock_outline_rounded, color: AppColors.outline),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppDimensions.spaceMd),
-              ],
-
-              ElevatedButton(
-                onPressed: () {
-                  if (!_otpSent) {
-                    setState(() => _otpSent = true);
-                  } else {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (_) => const RoleSelectionScreen(),
+                    ],
+                    const SizedBox(height: AppDimensions.spaceMd),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _isSubmitting ? null : _submitLogin,
+                        child: _isSubmitting
+                            ? const SizedBox(
+                                width: 18,
+                                height: 18,
+                                child: CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : const Text('Login'),
                       ),
-                    );
-                  }
-                },
-                child: Text(_otpSent ? 'Verify OTP & Continue' : 'Get OTP on Phone'),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: AppDimensions.spaceMd),
-
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                    );
+                  },
+                  child: const Text('Create account'),
+                ),
+              ),
+              const SizedBox(height: AppDimensions.spaceMd),
               Center(
                 child: TextButton(
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (_) => const RoleSelectionScreen(),
-                      ),
+                      MaterialPageRoute(builder: (_) => const RoleSelectionScreen()),
                     );
                   },
                   child: const Text('Skip Login for Now (Explore Guest Mode)'),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../providers/ai_provider.dart';
-import '../../providers/auth_provider.dart';
 import '../../providers/product_provider.dart';
 import '../../theme/colors.dart';
 import '../../theme/dimensions.dart';
@@ -23,14 +22,12 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
   int _currentTabIndex = 0;
   late ProductProvider _productProvider;
   late AIProvider _aiProvider;
-  late AuthProvider _authProvider;
 
   @override
   void initState() {
     super.initState();
     _productProvider = ProductProvider();
     _aiProvider = AIProvider();
-    _authProvider = AuthProvider();
 
     _productProvider.addListener(_onStateChange);
     _aiProvider.addListener(_onStateChange);
@@ -105,7 +102,8 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
                     ),
                     Row(
                       children: [
-                        const Icon(Icons.verified, size: 14, color: AppColors.forestGreen),
+                        const Icon(Icons.verified,
+                            size: 14, color: AppColors.forestGreen),
                         const SizedBox(width: 4),
                         Text(
                           'Molela Studio • Master Potter',
@@ -130,15 +128,18 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
                   );
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppColors.primaryFixed.withOpacity(0.6),
+                    color: AppColors.primaryFixed.withValues(alpha: 0.6),
                     borderRadius: AppDimensions.roundedFull,
-                    border: Border.all(color: AppColors.terracotta.withOpacity(0.4)),
+                    border: Border.all(
+                        color: AppColors.terracotta.withValues(alpha: 0.4)),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.storefront_outlined, size: 14, color: AppColors.terracotta),
+                      const Icon(Icons.storefront_outlined,
+                          size: 14, color: AppColors.terracotta),
                       const SizedBox(width: 4),
                       Text(
                         'Buyer View',
@@ -171,7 +172,7 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
               borderRadius: AppDimensions.roundedXl,
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.terracotta.withOpacity(0.3),
+                  color: AppColors.terracotta.withValues(alpha: 0.3),
                   blurRadius: 16,
                   offset: const Offset(0, 6),
                 ),
@@ -184,15 +185,17 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: AppColors.pureWhite.withOpacity(0.2),
+                        color: AppColors.pureWhite.withValues(alpha: 0.2),
                         borderRadius: AppDimensions.roundedFull,
                       ),
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.auto_awesome, color: AppColors.pureWhite, size: 14),
+                          Icon(Icons.auto_awesome,
+                              color: AppColors.pureWhite, size: 14),
                           SizedBox(width: 4),
                           Text(
                             'AI VOICE & VISION LISTING',
@@ -221,7 +224,7 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
                 Text(
                   'Take a photo of your pottery, speak in your language, and AI will calculate fair prices & tell your story.',
                   style: AppTypography.bodySm.copyWith(
-                    color: AppColors.pureWhite.withOpacity(0.9),
+                    color: AppColors.pureWhite.withValues(alpha: 0.9),
                     fontSize: 13,
                     height: 1.35,
                   ),
@@ -346,13 +349,20 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.star_rounded, color: AppColors.warmSaffron, size: 20),
-                    const Icon(Icons.star_rounded, color: AppColors.warmSaffron, size: 20),
-                    const Icon(Icons.star_rounded, color: AppColors.warmSaffron, size: 20),
-                    const Icon(Icons.star_rounded, color: AppColors.warmSaffron, size: 20),
-                    const Icon(Icons.star_rounded, color: AppColors.warmSaffron, size: 20),
+                    const Icon(Icons.star_rounded,
+                        color: AppColors.warmSaffron, size: 20),
+                    const Icon(Icons.star_rounded,
+                        color: AppColors.warmSaffron, size: 20),
+                    const Icon(Icons.star_rounded,
+                        color: AppColors.warmSaffron, size: 20),
+                    const Icon(Icons.star_rounded,
+                        color: AppColors.warmSaffron, size: 20),
+                    const Icon(Icons.star_rounded,
+                        color: AppColors.warmSaffron, size: 20),
                     const Spacer(),
-                    Text('2 hours ago', style: AppTypography.bodySm.copyWith(color: AppColors.outline)),
+                    Text('2 hours ago',
+                        style: AppTypography.bodySm
+                            .copyWith(color: AppColors.outline)),
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -443,10 +453,11 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: AppColors.terracotta.withOpacity(0.1),
+              color: AppColors.terracotta.withValues(alpha: 0.1),
               borderRadius: AppDimensions.roundedMd,
             ),
-            child: const Icon(Icons.inventory_2_outlined, color: AppColors.terracotta, size: 24),
+            child: const Icon(Icons.inventory_2_outlined,
+                color: AppColors.terracotta, size: 24),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -465,13 +476,15 @@ class _ArtisanHomeScreenState extends State<ArtisanHomeScreen> {
                     ),
                     Text(
                       destination,
-                      style: AppTypography.bodySm.copyWith(fontSize: 11, color: AppColors.outline),
+                      style: AppTypography.bodySm
+                          .copyWith(fontSize: 11, color: AppColors.outline),
                     ),
                   ],
                 ),
                 Text(
                   craftName,
-                  style: AppTypography.labelMd.copyWith(fontWeight: FontWeight.w700),
+                  style: AppTypography.labelMd
+                      .copyWith(fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 2),
                 Text(

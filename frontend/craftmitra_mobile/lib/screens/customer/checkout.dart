@@ -60,59 +60,84 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                   const SizedBox(height: AppDimensions.spaceSm),
 
-                  ...List.generate(_addresses.length, (index) {
-                    final addr = _addresses[index];
-                    final isSelected = _selectedAddressIndex == index;
-                    return GestureDetector(
-                      onTap: () => setState(() => _selectedAddressIndex = index),
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: AppDimensions.spaceSm + 4),
-                        padding: const EdgeInsets.all(AppDimensions.spaceMd),
-                        decoration: BoxDecoration(
-                          color: AppColors.pureWhite,
-                          borderRadius: AppDimensions.roundedLg,
-                          border: Border.all(
-                            color: isSelected ? AppColors.terracotta : AppColors.surfaceContainerHigh,
-                            width: isSelected ? 2 : 1,
-                          ),
-                          boxShadow: const [AppColors.pressedShadow],
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Radio<int>(
-                              value: index,
-                              groupValue: _selectedAddressIndex,
-                              onChanged: (val) => setState(() => _selectedAddressIndex = val!),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Column(
+                  RadioGroup<int>(
+                    groupValue: _selectedAddressIndex,
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() => _selectedAddressIndex = value);
+                      }
+                    },
+                    child: Column(
+                      children: [
+                        ...List.generate(_addresses.length, (index) {
+                          final addr = _addresses[index];
+                          final isSelected = _selectedAddressIndex == index;
+                          return GestureDetector(
+                            onTap: () =>
+                                setState(() => _selectedAddressIndex = index),
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  bottom: AppDimensions.spaceSm + 4),
+                              padding:
+                                  const EdgeInsets.all(AppDimensions.spaceMd),
+                              decoration: BoxDecoration(
+                                color: AppColors.pureWhite,
+                                borderRadius: AppDimensions.roundedLg,
+                                border: Border.all(
+                                  color: isSelected
+                                      ? AppColors.terracotta
+                                      : AppColors.surfaceContainerHigh,
+                                  width: isSelected ? 2 : 1,
+                                ),
+                                boxShadow: const [AppColors.pressedShadow],
+                              ),
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        addr['title']!,
-                                        style: AppTypography.labelMd.copyWith(fontWeight: FontWeight.w700),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text('• ${addr['name']!}', style: AppTypography.bodySm),
-                                    ],
+                                  Radio<int>(
+                                    value: index,
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(addr['address']!, style: AppTypography.bodySm),
-                                  Text(addr['city']!, style: AppTypography.bodySm),
-                                  const SizedBox(height: 4),
-                                  Text(addr['phone']!, style: AppTypography.bodySm.copyWith(color: AppColors.outline)),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              addr['title']!,
+                                              style: AppTypography.labelMd
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text('• ${addr['name']!}',
+                                                style: AppTypography.bodySm),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(addr['address']!,
+                                            style: AppTypography.bodySm),
+                                        Text(addr['city']!,
+                                            style: AppTypography.bodySm),
+                                        const SizedBox(height: 4),
+                                        Text(addr['phone']!,
+                                            style: AppTypography.bodySm
+                                                .copyWith(
+                                                    color: AppColors.outline)),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: AppDimensions.spaceSm),
 
                   OutlinedButton.icon(
@@ -131,7 +156,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.eco_outlined, color: AppColors.forestGreen, size: 24),
+                        const Icon(Icons.eco_outlined,
+                            color: AppColors.forestGreen, size: 24),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
@@ -167,7 +193,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     final selectedAddr = _addresses[_selectedAddressIndex];
-                    final fullAddress = '${selectedAddr['address']}, ${selectedAddr['city']}';
+                    final fullAddress =
+                        '${selectedAddr['address']}, ${selectedAddr['city']}';
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => PaymentScreen(
@@ -181,7 +208,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Continue to Payment (₹${widget.cartProvider.grandTotal.toStringAsFixed(0)})'),
+                      Text(
+                          'Continue to Payment (₹${widget.cartProvider.grandTotal.toStringAsFixed(0)})'),
                       const SizedBox(width: 8),
                       const Icon(Icons.arrow_forward_rounded, size: 18),
                     ],

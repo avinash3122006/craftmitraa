@@ -1,1 +1,13 @@
-This prompt will be used to generate polished product descriptions and artisan storytelling text.
+Generate a simple, attractive e-commerce
+description for a handmade artisan product.
+
+The description should:
+
+- Explain what the product is
+- Mention materials
+- Mention craftsmanship
+- Explain usage
+- Highlight handmade nature
+- Preserve the artisan's story
+
+Avoid exaggerated claims.

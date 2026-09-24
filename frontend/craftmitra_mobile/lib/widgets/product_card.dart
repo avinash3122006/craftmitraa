@@ -70,7 +70,7 @@ class ProductCard extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: AppColors.warmCream.withOpacity(0.95),
+                        color: AppColors.warmCream.withValues(alpha: 0.95),
                         borderRadius: AppDimensions.roundedFull,
                         boxShadow: const [AppColors.pressedShadow],
                       ),

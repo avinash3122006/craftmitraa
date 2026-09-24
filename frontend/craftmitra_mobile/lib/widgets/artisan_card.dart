@@ -138,7 +138,7 @@ class ArtisanCard extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: AppColors.secondaryFixed.withOpacity(0.4),
+                        color: AppColors.secondaryFixed.withValues(alpha: 0.4),
                         borderRadius: AppDimensions.roundedFull,
                       ),
                       child: Row(

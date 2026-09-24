@@ -240,7 +240,7 @@ class CraftMitraBottomNav extends StatelessWidget {
           borderRadius: AppDimensions.roundedFull,
           boxShadow: [
             BoxShadow(
-              color: AppColors.terracotta.withOpacity(0.35),
+              color: AppColors.terracotta.withValues(alpha: 0.35),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),

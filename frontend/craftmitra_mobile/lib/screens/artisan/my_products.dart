@@ -41,7 +41,7 @@ class MyProductsScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppColors.forestGreen.withOpacity(0.12),
+                    color: AppColors.forestGreen.withValues(alpha: 0.12),
                     borderRadius: AppDimensions.roundedFull,
                   ),
                   child: const Row(

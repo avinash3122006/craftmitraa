@@ -47,7 +47,7 @@ class ArtisanProfileScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Colors.black.withOpacity(0.6),
+                          Colors.black.withValues(alpha: 0.6),
                           Colors.transparent,
                           AppColors.background,
                         ],
@@ -181,9 +181,9 @@ class ArtisanProfileScreen extends StatelessWidget {
                         return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: AppColors.secondaryFixed.withOpacity(0.4),
+                            color: AppColors.secondaryFixed.withValues(alpha: 0.4),
                             borderRadius: AppDimensions.roundedFull,
-                            border: Border.all(color: AppColors.warmSaffron.withOpacity(0.5)),
+                            border: Border.all(color: AppColors.warmSaffron.withValues(alpha: 0.5)),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,

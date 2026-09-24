@@ -84,7 +84,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           children: [
                             Text(
                               'Total Payable',
-                              style: AppTypography.bodySm.copyWith(color: AppColors.outline),
+                              style: AppTypography.bodySm
+                                  .copyWith(color: AppColors.outline),
                             ),
                             Text(
                               '₹${widget.cartProvider.grandTotal.toStringAsFixed(0)}',
@@ -96,9 +97,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           ],
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 6),
                           decoration: BoxDecoration(
-                            color: AppColors.tertiaryFixed.withOpacity(0.5),
+                            color:
+                                AppColors.tertiaryFixed.withValues(alpha: 0.5),
                             borderRadius: AppDimensions.roundedFull,
                           ),
                           child: Text(
@@ -121,79 +124,105 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                   const SizedBox(height: AppDimensions.spaceSm),
 
-                  ...List.generate(_paymentMethods.length, (index) {
-                    final method = _paymentMethods[index];
-                    final isSelected = _selectedPaymentMethod == index;
-                    return GestureDetector(
-                      onTap: () => setState(() => _selectedPaymentMethod = index),
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: AppDimensions.spaceSm + 4),
-                        padding: const EdgeInsets.all(AppDimensions.spaceMd),
-                        decoration: BoxDecoration(
-                          color: AppColors.pureWhite,
-                          borderRadius: AppDimensions.roundedLg,
-                          border: Border.all(
-                            color: isSelected ? AppColors.terracotta : AppColors.surfaceContainerHigh,
-                            width: isSelected ? 2 : 1,
-                          ),
-                          boxShadow: const [AppColors.pressedShadow],
-                        ),
-                        child: Row(
-                          children: [
-                            Radio<int>(
-                              value: index,
-                              groupValue: _selectedPaymentMethod,
-                              onChanged: (val) => setState(() => _selectedPaymentMethod = val!),
-                            ),
-                            const SizedBox(width: 8),
-                            Icon(method['icon'] as IconData, color: AppColors.terracotta, size: 24),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                  RadioGroup<int>(
+                    groupValue: _selectedPaymentMethod,
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() => _selectedPaymentMethod = value);
+                      }
+                    },
+                    child: Column(
+                      children: [
+                        ...List.generate(_paymentMethods.length, (index) {
+                          final method = _paymentMethods[index];
+                          final isSelected = _selectedPaymentMethod == index;
+                          return GestureDetector(
+                            onTap: () =>
+                                setState(() => _selectedPaymentMethod = index),
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  bottom: AppDimensions.spaceSm + 4),
+                              padding:
+                                  const EdgeInsets.all(AppDimensions.spaceMd),
+                              decoration: BoxDecoration(
+                                color: AppColors.pureWhite,
+                                borderRadius: AppDimensions.roundedLg,
+                                border: Border.all(
+                                  color: isSelected
+                                      ? AppColors.terracotta
+                                      : AppColors.surfaceContainerHigh,
+                                  width: isSelected ? 2 : 1,
+                                ),
+                                boxShadow: const [AppColors.pressedShadow],
+                              ),
+                              child: Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        method['title'] as String,
-                                        style: AppTypography.labelMd.copyWith(fontWeight: FontWeight.w700),
-                                      ),
-                                      if (method['badge'] != null) ...[
-                                        const SizedBox(width: 6),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.forestGreen.withOpacity(0.12),
-                                            borderRadius: AppDimensions.roundedFull,
-                                          ),
-                                          child: Text(
-                                            method['badge'] as String,
-                                            style: const TextStyle(
-                                              color: AppColors.forestGreen,
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.w700,
+                                  Radio<int>(
+                                    value: index,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Icon(method['icon'] as IconData,
+                                      color: AppColors.terracotta, size: 24),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              method['title'] as String,
+                                              style: AppTypography.labelMd
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w700),
                                             ),
+                                            if (method['badge'] != null) ...[
+                                              const SizedBox(width: 6),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 6,
+                                                        vertical: 2),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors.forestGreen
+                                                      .withValues(alpha: 0.12),
+                                                  borderRadius:
+                                                      AppDimensions.roundedFull,
+                                                ),
+                                                child: Text(
+                                                  method['badge'] as String,
+                                                  style: const TextStyle(
+                                                    color:
+                                                        AppColors.forestGreen,
+                                                    fontSize: 9,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ],
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          method['subtitle'] as String,
+                                          style: AppTypography.bodySm.copyWith(
+                                            fontSize: 12,
+                                            color: AppColors.onSurfaceVariant,
                                           ),
                                         ),
                                       ],
-                                    ],
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    method['subtitle'] as String,
-                                    style: AppTypography.bodySm.copyWith(
-                                      fontSize: 12,
-                                      color: AppColors.onSurfaceVariant,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -217,21 +246,25 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ? null
                       : () async {
                           setState(() => _isProcessing = true);
-                          await Future.delayed(const Duration(milliseconds: 1000));
+                          await Future.delayed(
+                              const Duration(milliseconds: 1000));
 
-                          final chosenMethod = _paymentMethods[_selectedPaymentMethod]['title'] as String;
+                          final chosenMethod =
+                              _paymentMethods[_selectedPaymentMethod]['title']
+                                  as String;
 
                           widget.orderProvider?.createOrder(
                             items: widget.cartProvider.items,
                             totalAmount: widget.cartProvider.grandTotal,
-                            artisanContribution: widget.cartProvider.totalArtisanShare,
+                            artisanContribution:
+                                widget.cartProvider.totalArtisanShare,
                             deliveryAddress: widget.deliveryAddress,
                             paymentMethod: chosenMethod,
                           );
 
                           widget.cartProvider.clearCart();
 
-                          if (!mounted) return;
+                          if (!context.mounted) return;
                           setState(() => _isProcessing = false);
 
                           Navigator.of(context).pushAndRemoveUntil(
@@ -249,10 +282,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           height: 24,
                           child: CircularProgressIndicator(
                             strokeWidth: 2.5,
-                            valueColor: AlwaysStoppedAnimation<Color>(AppColors.pureWhite),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                AppColors.pureWhite),
                           ),
                         )
-                      : Text('Pay ₹${widget.cartProvider.grandTotal.toStringAsFixed(0)} & Confirm'),
+                      : Text(
+                          'Pay ₹${widget.cartProvider.grandTotal.toStringAsFixed(0)} & Confirm'),
                 ),
               ),
             ),

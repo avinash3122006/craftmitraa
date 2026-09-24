@@ -64,9 +64,9 @@ class _AIPreviewScreenState extends State<AIPreviewScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
-                  color: AppColors.forestGreen.withOpacity(0.12),
+                  color: AppColors.forestGreen.withValues(alpha: 0.12),
                   borderRadius: AppDimensions.roundedMd,
-                  border: Border.all(color: AppColors.forestGreen.withOpacity(0.3)),
+                  border: Border.all(color: AppColors.forestGreen.withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: [
@@ -118,7 +118,7 @@ class _AIPreviewScreenState extends State<AIPreviewScreen> {
                   color: AppColors.pureWhite,
                   borderRadius: AppDimensions.roundedLg,
                   boxShadow: const [AppColors.cardShadow],
-                  border: Border.all(color: AppColors.terracotta.withOpacity(0.3), width: 1.5),
+                  border: Border.all(color: AppColors.terracotta.withValues(alpha: 0.3), width: 1.5),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +139,7 @@ class _AIPreviewScreenState extends State<AIPreviewScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                           decoration: BoxDecoration(
-                            color: AppColors.tertiaryFixed.withOpacity(0.4),
+                            color: AppColors.tertiaryFixed.withValues(alpha: 0.4),
                             borderRadius: AppDimensions.roundedFull,
                           ),
                           child: Text(

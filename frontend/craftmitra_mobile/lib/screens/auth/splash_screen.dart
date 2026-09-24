@@ -62,7 +62,7 @@ class SplashScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.terracotta.withOpacity(0.35),
+                          color: AppColors.terracotta.withValues(alpha: 0.35),
                           blurRadius: 24,
                           offset: const Offset(0, 8),
                         ),

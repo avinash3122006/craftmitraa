@@ -1,1 +1,9 @@
-This prompt will be used to translate product descriptions and titles into regional languages.
+Translate artisan product information while
+preserving:
+
+- Meaning
+- Cultural context
+- Product details
+- Artisan story
+
+Do not change factual information.

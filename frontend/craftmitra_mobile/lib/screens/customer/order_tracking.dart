@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../models/order_model.dart';
 import '../../providers/order_provider.dart';
 import '../../theme/colors.dart';
 import '../../theme/dimensions.dart';
@@ -79,7 +78,7 @@ class OrderTrackingScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
-                          color: AppColors.terracotta.withOpacity(0.12),
+                          color: AppColors.terracotta.withValues(alpha: 0.12),
                           borderRadius: AppDimensions.roundedFull,
                         ),
                         child: Text(

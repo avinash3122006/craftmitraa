@@ -25,7 +25,7 @@ class StoryCard extends StatefulWidget {
 
 class _StoryCardState extends State<StoryCard> {
   bool _isPlaying = false;
-  double _playbackProgress = 0.25;
+  final double _playbackProgress = 0.25;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _StoryCardState extends State<StoryCard> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: AppColors.secondaryFixed.withOpacity(0.5),
+                  color: AppColors.secondaryFixed.withValues(alpha: 0.5),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -97,7 +97,8 @@ class _StoryCardState extends State<StoryCard> {
             decoration: BoxDecoration(
               color: AppColors.surfaceContainerLow,
               borderRadius: AppDimensions.roundedMd,
-              border: Border.all(color: AppColors.outlineVariant.withOpacity(0.5)),
+              border: Border.all(
+                  color: AppColors.outlineVariant.withValues(alpha: 0.5)),
             ),
             child: Row(
               children: [
@@ -115,7 +116,9 @@ class _StoryCardState extends State<StoryCard> {
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
-                      _isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                      _isPlaying
+                          ? Icons.pause_rounded
+                          : Icons.play_arrow_rounded,
                       color: AppColors.pureWhite,
                       size: 22,
                     ),
@@ -130,7 +133,9 @@ class _StoryCardState extends State<StoryCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            _isPlaying ? 'Playing Artisan Audio Voice...' : 'Listen in Artisan’s Own Voice',
+                            _isPlaying
+                                ? 'Playing Artisan Audio Voice...'
+                                : 'Listen in Artisan’s Own Voice',
                             style: AppTypography.labelSm.copyWith(
                               fontWeight: FontWeight.w600,
                               fontSize: 12,
@@ -152,7 +157,8 @@ class _StoryCardState extends State<StoryCard> {
                         child: LinearProgressIndicator(
                           value: _isPlaying ? 0.65 : _playbackProgress,
                           backgroundColor: AppColors.surfaceContainerHighest,
-                          valueColor: const AlwaysStoppedAnimation<Color>(AppColors.terracotta),
+                          valueColor: const AlwaysStoppedAnimation<Color>(
+                              AppColors.terracotta),
                           minHeight: 4,
                         ),
                       ),

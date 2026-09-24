@@ -63,7 +63,7 @@ class AppTheme {
       ),
 
       // Card Theme (Pure white against warm cream, 16px radius)
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surfaceContainerLowest,
         elevation: 0,
         margin: EdgeInsets.zero,
@@ -136,7 +136,7 @@ class AppTheme {
           vertical: 14,
         ),
         hintStyle: AppTypography.bodyMd.copyWith(
-          color: AppColors.onSurfaceVariant.withOpacity(0.6),
+          color: AppColors.onSurfaceVariant.withValues(alpha: 0.6),
         ),
         labelStyle: AppTypography.labelMd.copyWith(
           color: AppColors.darkCharcoal,
@@ -173,8 +173,8 @@ class AppTheme {
 
       // Checkbox Theme (Oversized touch targets with forest green active state)
       checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-          if (states.contains(MaterialState.selected)) {
+        fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+          if (states.contains(WidgetState.selected)) {
             return AppColors.forestGreen;
           }
           return Colors.transparent;
@@ -187,8 +187,8 @@ class AppTheme {
 
       // Radio Theme (Forest green)
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-          if (states.contains(MaterialState.selected)) {
+        fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+          if (states.contains(WidgetState.selected)) {
             return AppColors.forestGreen;
           }
           return AppColors.outline;
